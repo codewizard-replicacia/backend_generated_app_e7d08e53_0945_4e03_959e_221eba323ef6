@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+    <edmx:DataServices>
+        <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Model">
+            <EntityType HasStream="false" Name="Product">
+                <Key>
+                    <PropertyRef Name="Product_Id"/>
+                </Key>
+                <Property Name="Product_Id" Type="Edm.Int32" isUnique="false"/>
+                <Property Name="ProductName" Type="Edm.String" isUnique="false"/>
+                <Property Name="ProductDescription" Type="Edm.String" isUnique="false"/>
+                <Property Name="ReturnMerchandiseAuthNotRequired" Type="Edm.Boolean" isUnique="false"/>
+                <Property Name="ProductPrice" Type="Edm.Single" isUnique="false"/>
+                <Property Name="ProductColor" Type="Edm.String" isUnique="false"/>
+                <Property Name="ProductSize" Type="Edm.Single" isUnique="false"/>
+                <Property Name="CreatedDate" Type="Edm.DateTimeOffset" isUnique="false"/>
+                <Property Name="LastModifiedDate" Type="Edm.DateTimeOffset" isUnique="false"/>
+                <NavigationProperty Name="ProductType" Type="Model.ProductType"/>
+                <NavigationProperty Name="ProductImage" Type="Model.Document"/>
+            </EntityType>
+            <EntityType HasStream="true" Name="Document">
+                <Key>
+                    <PropertyRef Name="Doc_Id"/>
+                </Key>
+                <Property Name="Doc_Id" Type="Edm.Int32" isUnique="false"/>
+                <Property Name="FileType" Type="Edm.String" isUnique="false"/>
+                <Property Name="FileName" Type="Edm.String" isUnique="false"/>
+            </EntityType>
+            <EntityType HasStream="false" Name="ProductType">
+                <Key>
+                    <PropertyRef Name="ProductTypeCode"/>
+                </Key>
+                <Property Name="ProductTypeCode" Type="Edm.Int32" isUnique="false"/>
+                <Property Name="ProductTypeDescription" Type="Edm.String" isUnique="false"/>
+            </EntityType>
+            <EntityContainer Name="Container">
+                <EntitySet Name="Products" EntityType="Model.Product">
+                    <NavigationPropertyBinding Path="ProductType" Target="ProductTypes"/>
+                    <NavigationPropertyBinding Path="ProductImage" Target="Documents"/>
+                </EntitySet>
+                <EntitySet Name="Documents" EntityType="Model.Document"/>
+                <EntitySet Name="ProductTypes" EntityType="Model.ProductType"/>
+            </EntityContainer>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

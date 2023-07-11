@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+		http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+		http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    <property name="schemaName" value="generated_app"></property>
+    <property name="author=" value="db-designer"></property>
+    <changeSet id="v1-01-01" author="${author}">
+    
+ <createTable schemaName="${schemaName}" tableName="ProductType">
+	<column name="ProductTypeCode" type="SERIAL" autoIncrement="true" >
+        <constraints nullable="false" primaryKey="true"/>
+    </column>
+     <column name="ProductTypeDescription" type="VARCHAR(250)" />
+    
+ 	
+</createTable>
+ <createTable schemaName="${schemaName}" tableName="Product">
+	<column name="Product_Id" type="SERIAL" autoIncrement="true" >
+        <constraints nullable="false" primaryKey="true"/>
+    </column>
+     <column name="ProductName" type="VARCHAR(250)" />
+    
+     <column name="ProductDescription" type="VARCHAR(250)" />
+    
+     <column name="ReturnMerchandiseAuthNotRequired" type="BOOLEAN" />
+    
+     <column name="ProductPrice" type="REAL" />
+    
+     <column name="ProductColor" type="VARCHAR(250)" />
+    
+     <column name="ProductSize" type="REAL" />
+    
+     <column name="CreatedDate" type="TIMESTAMP" />
+    
+     <column name="LastModifiedDate" type="TIMESTAMP" />
+    
+ 	
+</createTable>
+ <createTable schemaName="${schemaName}" tableName="Document">
+	<column name="Doc_Id" type="SERIAL" autoIncrement="true" >
+        <constraints nullable="false" primaryKey="true"/>
+    </column>
+     <column name="FileType" type="VARCHAR(250)" />
+    
+     <column name="FileName" type="VARCHAR(250)" />
+    
+ 	<column name="Content" type="BINARY"/>
+	<column name="DocFileType" type="VARCHAR(100)"/>
+	
+</createTable>
+	
+
+	
+ 
+ 	<addColumn tableName="Product" schemaName="${schemaName}">
+	    <column name="ProductProductType" type="INTEGER"/>
+	</addColumn>
+	<addForeignKeyConstraint baseTableName="Product" baseColumnNames="ProductProductType" baseTableSchemaName="${schemaName}" constraintName="Product_ProductType_fk" referencedTableName="ProductType"
+	                                 referencedColumnNames="ProductTypeCode" referencedTableSchemaName="${schemaName}"/>
+ 
+	<addColumn tableName="Product" schemaName="${schemaName}">
+	    <column name="ProductProductImage" type="INTEGER"/>
+	</addColumn>
+	<addForeignKeyConstraint baseTableName="Product" baseColumnNames="ProductProductImage" baseTableSchemaName="${schemaName}" constraintName="Product_ProductImage_fk" referencedTableName="Document"
+	                                 referencedColumnNames="Doc_Id" referencedTableSchemaName="${schemaName}"/>
+ 
+
+ 
+	    </changeSet>
+</databaseChangeLog>
