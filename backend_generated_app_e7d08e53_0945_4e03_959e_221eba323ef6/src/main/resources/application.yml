@@ -19,3 +19,10 @@ spring:
   servlet:
     multipart:
       enabled: false
+eclipselink:
+   ddl:
+       auto:
+            create:
+                   delete: false       
+jwt:
+  secret: replicacia
